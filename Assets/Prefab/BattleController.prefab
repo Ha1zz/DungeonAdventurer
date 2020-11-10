@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overWorld: PlayScene
+  playerPrefab: {fileID: 8787888836815530719, guid: 0a5b7bb3436184845a3ec5f82b1bbe57, type: 3}

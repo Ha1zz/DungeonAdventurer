@@ -42,7 +42,8 @@ public class RandomEncounterController : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerPositionX", playerPosition.position.x);
             PlayerPrefs.SetFloat("PlayerPositionY", playerPosition.position.y);
             PlayerPrefs.Save();
-            int seed = Random.Range(1, 2);
+            //int seed = Random.Range(1, 2);
+            int seed = 1;
             switch(seed)
             {
                 case 1:
