@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private Animator animator;
+
     public float health = 10;
 
     public float attack = 1;
@@ -38,7 +40,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        health = 10;
+        attack = 1;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -58,9 +62,53 @@ public class PlayerController : MonoBehaviour
             PlayerPrefs.SetInt("EncounterCounter",enCounter);
             //PlayerPrefs.Save();
         }
+        Move();
+    }
+
+
+    private void Move()
+    {
         Vector2 movementVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        
+
         movementVector *= speed;
         rigidBody.velocity = movementVector;
+
+        bool isRunning = movementVector.magnitude > float.Epsilon;
+        if (isRunning)
+        {
+            bool isMovingHorizontally = Mathf.Abs(movementVector.x) > Mathf.Abs(movementVector.y);
+            if (isMovingHorizontally) //moving left/right more than up/down
+            {
+                if (movementVector.x < 0) //moving left/WEST
+                {
+                    animator.Play("RunLeft");
+                }
+                else //moving right/EAST
+                {
+                    animator.Play("RunRight");
+                }
+            }
+            else // moving more vertically
+            {
+                if (movementVector.x == 0 && movementVector.y != 0) //moving down/SOUTH
+                {
+                    animator.Play("RunRight");
+                }
+                if (movementVector.x > 0 && movementVector.y < 0) //moving down/SOUTH
+                {
+                    animator.Play("RunRight");
+                }
+                if (movementVector.x > 0 && movementVector.y > 0)
+                {
+                    animator.Play("RunRight");
+                }
+            }
+        }
+        else
+        {
+            animator.Play("Idle");
+        }
     }
 
     void OnGUI()
@@ -74,5 +122,10 @@ public class PlayerController : MonoBehaviour
         GUI.Box(new Rect(0, 0, size.x, size.y), progressBarFull);
         GUI.EndGroup();
         GUI.EndGroup();
+    }
+
+    private void FlipX()
+    {
+        transform.localScale = new Vector3(transform.localScale.x * -1.0f, transform.localScale.y, transform.localScale.z);
     }
 }

@@ -6,9 +6,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using Debug = UnityEngine.Debug;
+using UnityEditor.Events;
 
 public class RandomEncounterController : MonoBehaviour
 {
+
+
     public string randEnt1;
     public string randEnt2;
     public string randEnt3;

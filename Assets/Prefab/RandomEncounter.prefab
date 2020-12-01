@@ -14,7 +14,7 @@ GameObject:
   m_Layer: 0
   m_Name: RandomEncounter
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -70,6 +70,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece70b2b03bd17248be66103a0dae67f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randEnt1: 
-  randEnt2: 
-  randEnt3: 
+  randEnt1: RandomEncounter1
+  randEnt2: RandomEncounter2
+  randEnt3: RandomEncounter3
