@@ -39,6 +39,8 @@ public class ICharacter : MonoBehaviour
         int damageTaken = baseDamage;
         hp -= baseDamage;
         onTakeDamage.Invoke(this, baseDamage);
+
+        SoundManager.PlaySound(SoundManager.Sound.playerHit);
     }
 
 }

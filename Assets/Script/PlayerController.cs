@@ -103,12 +103,18 @@ public class PlayerController : MonoBehaviour
                 {
                     animator.Play("RunRight");
                 }
+
             }
+
+            //For sound
+            SoundManager.PlaySound(SoundManager.Sound.playerMove);
         }
         else
         {
             animator.Play("Idle");
         }
+
+        
     }
 
     void OnGUI()
