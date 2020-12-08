@@ -12,7 +12,9 @@ public enum TargetAndEffectType
     AllAttack,
     SelfHeal,
     OpponentHeal,
-    AllHeal
+    AllHeal,
+    Escape,
+    Struggle
 }
 
 

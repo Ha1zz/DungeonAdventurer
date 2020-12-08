@@ -11,6 +11,11 @@ public class ICharacter : MonoBehaviour
     [SerializeField]
     public int hpMax = 20;
 
+    public int mana = 10;
+
+    [SerializeField]
+    public int manaMax = 10;
+
     [SerializeField]
     //public Animator animator;
     public Animator anim;
@@ -99,6 +104,16 @@ public class ICharacter : MonoBehaviour
     }
 
     public virtual void HealAnimation()
+    {
+
+    }
+
+    public virtual void Escape()
+    {
+
+    }
+
+    public virtual void Struggle()
     {
 
     }

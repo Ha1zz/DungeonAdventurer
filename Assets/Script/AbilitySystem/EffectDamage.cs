@@ -63,6 +63,12 @@ public class EffectDamage : Effect
                     target.AttackLight();
                     break;
                 }
+            case (TargetAndEffectType.Escape):
+                {
+                    caster.Escape();
+                    break;
+                }
+            //case ()
         }
     }
 }

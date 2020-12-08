@@ -112,8 +112,8 @@ public class BattleSystem : MonoBehaviour
     public void Escape()
     {
         //animator.Play("Escape");
-        //SceneManager.LoadScene(overWorld);
-        AdvanceTurn();
+        SceneManager.LoadScene("PlayScene");
+        //AdvanceTurn();
     }
 
     //void NextTurn()
