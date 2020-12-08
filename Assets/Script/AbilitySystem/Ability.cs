@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class Ability : ScriptableObject
 {
-    [SerializeField]
-    AnimationClip clip;
-
-    [SerializeField]
-    AnimationClip clip2;
+    //[SerializeField]
+    //List<AnimationClip> clips;
 
     [SerializeField]
     List<Effect> effects;
 
     public virtual void ApplyEffects(ICharacter caster, ICharacter target)
     {
-        foreach(Effect effect in effects)
+        foreach (Effect effect in effects)
         {
             effect.Apply(caster, target);
         }

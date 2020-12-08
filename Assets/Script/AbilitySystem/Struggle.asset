@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b219e4828b5ca408050f21d8cd4053, type: 3}
   m_Name: Struggle
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
   effects:
-  - {fileID: 11400000, guid: 4c89d4715d14f4f4aa6e75e3482d4233, type: 2}
-  - {fileID: 11400000, guid: ad082b9d21d07bf4497a7d4a65e29166, type: 2}
+  - {fileID: 11400000, guid: dab1fd9d8eb630241819275d7f0d136e, type: 2}

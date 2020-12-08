@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc6a758a236f433438ae32b604172e2c, type: 3}
   m_Name: Heavy Attack
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 0}
+  - {fileID: 0}
   effects:
   - {fileID: 11400000, guid: 83306e2c55f354c4eafd1ada1c615703, type: 2}

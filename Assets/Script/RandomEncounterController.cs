@@ -34,6 +34,27 @@ public class RandomEncounterController : MonoBehaviour
         
     }
 
+    public void EnterEncounter()
+    {
+
+    }
+
+    public void ExitEncounter()
+    {
+        //onExitEncounter.Invoke();
+        //Invoke("DelayedOverworld");
+    }
+
+    //void DelayedOverworld()
+    //{
+    //    transform.root.gameObject.SetActive(true);
+    //    yield return new WaitForSeconds(0.0f);
+    //}
+
+
+ 
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player" && PlayerPrefs.GetInt("EncounterCounter") <= 0)
@@ -64,4 +85,5 @@ public class RandomEncounterController : MonoBehaviour
             }
         }
     }
+
 }

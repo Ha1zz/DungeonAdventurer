@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f8d200e78b7634d983712dda3c786d, type: 3}
   m_Name: EffectDamageOpponentLarge
   m_EditorClassIdentifier: 
-  targetAndEffectType: 1
+  targetAndEffectType: 4
   power: 4

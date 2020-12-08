@@ -17,6 +17,8 @@ public class HealthBarScript : MonoBehaviour
     {
         if (player.hp <= 0)
             player.hp = 0;
+        if (player.hp >= player.hpMax)
+            player.hp = player.hpMax;
         transform.localScale = new Vector3((float)((double)player.hp / (double)player.hpMax), 1.0f, 1.0f);
 
     }

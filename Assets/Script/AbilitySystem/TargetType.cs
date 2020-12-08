@@ -5,7 +5,10 @@ using UnityEngine;
 public enum TargetAndEffectType
 {
     SelfAttack,
+    SelfHeavyAttack,
     OpponentAttack,
+    OpponentMediumAttack,
+    OpponentHeavyAttack,
     AllAttack,
     SelfHeal,
     OpponentHeal,

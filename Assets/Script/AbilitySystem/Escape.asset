@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96b219e4828b5ca408050f21d8cd4053, type: 3}
   m_Name: Escape
   m_EditorClassIdentifier: 
-  clip: {fileID: 0}
+  clips:
+  - {fileID: 0}
+  - {fileID: 0}
   effects: []

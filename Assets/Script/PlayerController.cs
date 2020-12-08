@@ -117,18 +117,18 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    void OnGUI()
-    {
-        GUI.color = Color.red;
-        // draw the background:
-        GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
-        GUI.Box(new Rect(0, 0, size.x, size.y), progressBarEmpty);
-        // draw the filled-in part:
-        GUI.BeginGroup(new Rect(0, 0, size.x * barDisplay, size.y));
-        GUI.Box(new Rect(0, 0, size.x, size.y), progressBarFull);
-        GUI.EndGroup();
-        GUI.EndGroup();
-    }
+    //void OnGUI()
+    //{
+    //    GUI.color = Color.red;
+    //    // draw the background:
+    //    GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
+    //    GUI.Box(new Rect(0, 0, size.x, size.y), progressBarEmpty);
+    //    // draw the filled-in part:
+    //    GUI.BeginGroup(new Rect(0, 0, size.x * barDisplay, size.y));
+    //    GUI.Box(new Rect(0, 0, size.x, size.y), progressBarFull);
+    //    GUI.EndGroup();
+    //    GUI.EndGroup();
+    //}
 
     private void FlipX()
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 enum BattlePhase
 {
@@ -23,37 +24,24 @@ public class BattleSystem : MonoBehaviour
 
     public UnityEvent<ICharacter> onCharacterTurnBegin;
 
-    public string overWorld;
+    //public string overWorld;
 
-    public GameObject playerPrefab;
-    private GameObject player;
-    private GameObject enemy;
-    private Animator animator;
-    CharacterController playerControl;
+    //CharacterController playerControl;
 
     public int struggleChance;
     public int escapeChance;
-    public int raiseDefenseChance;
-    public int raiseAttackChance;
 
     // Start is called before the first frame update
     void Start()
     {
-        //player = Instantiate(playerPrefab, transform.position, transform.rotation);
-        //player.transform.position = new Vector3(-7.0f, -1.0f, 0.0f);
-        //player.transform.localScale = new Vector3(8.0f, 8.0f, 1.0f);
-        //animator = player.GetComponent<Animator>();
-        ////playerControl = playerPrefab.GetComponent<CharacterController>();
-
-        //enemy = Instantiate(playerPrefab, transform.position, transform.rotation);
-        //enemy.transform.position = new Vector3(-7.0f, -1.0f, 0.0f);
-        ////enemy.transform.localScale = new Vector3(8.0f, 8.0f, 1.0f);
-
 
         for (int i = 0; i < combatants.Length; i++)
         {
             combatants[i].onUseAbility.AddListener(CharacterUseAbility);
         }
+        //combatants[0].onUseAbility.AddListener(CharacterUseAbility);
+        //combatants[1].AIonUseAbility.AddListener(AICharacterUseAbility);
+
         AdvanceTurn();
     }
 
@@ -68,10 +56,26 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
+
+
+        //ability.ApplyEffects(target, caster);
+
         ability.ApplyEffects(caster, target);
 
-        StartCoroutine(DelaySwapTurns(3));
+        StartCoroutine(DelaySwapTurns(6));
     }
+
+    //public void AICharacterUseAbility(ICharacter caster, Ability ability)
+    //{
+    //    ICharacter target = combatants[1];
+    //    caster = combatants[0];
+
+    //    //ability.ApplyEffects(caster, target);
+
+    //    ability.ApplyEffects(target, caster);
+
+    //    StartCoroutine(DelaySwapTurns(3));
+    //}
 
     public void AdvanceTurn()
     {
@@ -103,23 +107,6 @@ public class BattleSystem : MonoBehaviour
     public void OnTurnBegins()
     {
 
-    }
-
-    public void UpAttack()
-    {
-        PlayerController playerScript = player.GetComponent<PlayerController>();
-        float tempAttack = playerScript.health;
-        animator.Play("UpAttack");
-    }
-
-    public void UpDefense()
-    {
-        animator.Play("UpDefense");
-    }
-
-    public void Struggle()
-    {
-        animator.Play("Struggle");
     }
 
     public void Escape()
