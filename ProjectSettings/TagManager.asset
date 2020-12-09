@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Background
   - Highgrass
+  - Enemy
   layers:
   - Default
   - TransparentFX

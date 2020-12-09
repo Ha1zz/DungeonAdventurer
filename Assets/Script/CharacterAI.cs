@@ -28,9 +28,14 @@ public class CharacterAI : ICharacter
     public AudioClip healClip;
     public bool canPlay = true;
 
+    private int scared = 0;
+    private int aggressive = 0;
+    private int passive = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindWithTag("Player").GetComponent<CharacterPlayer>();
         animator = GetComponent<Animator>();
         musicController = GameObject.Find("MusicController");
         attack1Clip = (AudioClip)Resources.Load("BattleSounds/attack1");
@@ -47,25 +52,25 @@ public class CharacterAI : ICharacter
 
     public override void TakeTurn()
     {
-        if (mana >= manaMax)
-        {
-            UseAbility(3);
-        }
-        else
-        {
-            UseAbility(1);
+        //if (mana >= manaMax)
+        //{
+        //    UseAbility(0);
+        //}
+        //else
+        //{
+        //    UseAbility(0);
 
-        }
-        //UseAbility(0);
+        //}
+        UseAbility(2);
 
     }
 
     void Update()
     {
-        if (hp <= 0)
-        {
-            Death();
-        }
+        //if (hp <= 0)
+        //{
+        //    Death();
+        //}
     }
 
     //public override void PlayAnimation(AnimationClip animo)
@@ -128,14 +133,13 @@ public class CharacterAI : ICharacter
 
     public override void Heal(int healAmount)
     {
-        //animator.Play("GetHit");
-        //int damageTaken = healAmount;
-        hp += healAmount;
-        mana -= healAmount;
-        //onHeal.Invoke(this, healAmount);
-        //(ChangeAnimation());
+        if (mana >= healAmount)
+        {
+            hp += healAmount;
+            mana -= healAmount;
+        }
     }
-    public void Death()
+    public override void Death()
     {
         animator.Play("Death");
     }

@@ -13,6 +13,10 @@ enum BattlePhase
     Count
 }
 
+public static class Global
+{
+    public static int changeSkillID = 0;  
+}
 
 public class BattleSystem : MonoBehaviour
 {
@@ -22,7 +26,17 @@ public class BattleSystem : MonoBehaviour
     [SerializeField]
     BattlePhase phase;
 
+    [Header("All Abilities")]
+    [SerializeField]
+    public Ability[] abilities = new Ability[4];
+
     public UnityEvent<ICharacter> onCharacterTurnBegin;
+
+    [Header("Canvas System")]
+    public CanvasSystem canvas;
+
+    ///[SerializeField]
+    //public static int changeSkillID;
 
     //public string overWorld;
 
@@ -62,7 +76,16 @@ public class BattleSystem : MonoBehaviour
 
         ability.ApplyEffects(caster, target);
 
-        StartCoroutine(DelaySwapTurns(6));
+        //if ((int)phase == 0)
+        //{
+        //    canvas.HideBattle();
+        //}
+        //if ((int)phase != 0)
+        //{
+        //    canvas.ShowBattle();
+        //}
+
+        StartCoroutine(DelaySwapTurns(4));
     }
 
     //public void AICharacterUseAbility(ICharacter caster, Ability ability)
@@ -79,16 +102,38 @@ public class BattleSystem : MonoBehaviour
 
     public void AdvanceTurn()
     {
-        phase++;
-        if (phase >= BattlePhase.Count)
+        if (IsEnemyDead() == false && IsPlayerDead() == false)
         {
-            phase = 0;
+            if ((int)phase != 0)
+            {
+                canvas.ShowBattle();
+            }
+            phase++;
+            if (phase >= BattlePhase.Count)
+            {
+                phase = 0;
+            }
+
+            ICharacter whoseTurnItIs = combatants[(int)phase];
+            //Debug.Log("It is " + whoseTurnItIs.name + "'s turn.");
+            whoseTurnItIs.TakeTurn();
+            onCharacterTurnBegin.Invoke(whoseTurnItIs);
+        }
+        else
+        {
+            if (IsPlayerDead())
+            {
+                combatants[(int)BattlePhase.Player].Death();
+                canvas.ShowLose();
+
+            }
+            if (IsEnemyDead())
+            {
+                combatants[(int)BattlePhase.Enemy].Death();
+                canvas.ShowWin();
+            }
         }
 
-        ICharacter whoseTurnItIs = combatants[(int)phase];
-        //Debug.Log("It is " + whoseTurnItIs.name + "'s turn.");
-        whoseTurnItIs.TakeTurn();
-        onCharacterTurnBegin.Invoke(whoseTurnItIs);
     }
 
     IEnumerator DelaySwapTurns(float time)
@@ -101,7 +146,25 @@ public class BattleSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
 
+    bool IsPlayerDead()
+    {
+        if (combatants[(int)BattlePhase.Player].hp <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    bool IsEnemyDead()
+    {
+        if (combatants[(int)BattlePhase.Enemy].hp <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnTurnBegins()
@@ -114,6 +177,16 @@ public class BattleSystem : MonoBehaviour
         //animator.Play("Escape");
         SceneManager.LoadScene("PlayScene");
         //AdvanceTurn();
+    }
+
+    public void ChangeScene(string sceneName = "PlayScene")
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void ReloadSave()
+    {
+
     }
 
     //void NextTurn()

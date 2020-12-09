@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class AbilityButtonScript : MonoBehaviour
+public class AbilityButtonScriptPlayer : MonoBehaviour
 {
-    
 
     [SerializeField]
     int abilityID = 0;
@@ -18,7 +18,6 @@ public class AbilityButtonScript : MonoBehaviour
     UnityEngine.UI.Button theButton;
 
     private Ability thisAbility;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,17 +28,7 @@ public class AbilityButtonScript : MonoBehaviour
 
         thisAbility = battle.combatants[(int)BattlePhase.Player].abilities[abilityID];
 
-        if (thisAbility != null)
-        {
-            abilityNameText.text = thisAbility.name;
-        }
-        else
-        {
-            abilityNameText.text = "";
-            theButton.interactable = false;
-        }
-
-        theButton.onClick.AddListener(Activate);
+        theButton.onClick.AddListener(GetSkill);
     }
 
     void Update()
@@ -58,8 +47,16 @@ public class AbilityButtonScript : MonoBehaviour
         }
     }
 
-    public void Activate()
+    public void GetSkill()
     {
-        battle.combatants[(int)BattlePhase.Player].UseAbility(abilityID);
+        battle.combatants[(int)BattlePhase.Player].abilities[abilityID] = battle.abilities[Global.changeSkillID];
+        StartCoroutine(WaitAndLoad());
+    }
+    
+
+    IEnumerator WaitAndLoad(float time = 1.0f)
+    {
+        yield return new WaitForSeconds(time);
+        battle.ChangeScene();
     }
 }

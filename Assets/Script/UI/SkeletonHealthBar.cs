@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class SkeletonHealthBar : MonoBehaviour
 {
-    public CharacterAI player;
+    public CharacterAI character;
+    public Transform healthBar;
+    public Transform manaBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        //player = GetComponent<CharacterPlayer>();
+        //character = GetComponent<Charactercharacter>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.hp <= 0)
-            player.hp = 0;
-        if (player.hp >= player.hpMax)
-            player.hp = player.hpMax;
-        transform.localScale = new Vector3((float)((double)player.hp / (double)player.hpMax), 1.0f, 1.0f);
+        if (character.hp <= 0)
+            character.hp = 0;
+        if (character.hp >= character.hpMax)
+            character.hp = character.hpMax;
+        healthBar.transform.localScale = new Vector3((float)((double)character.hp / (double)character.hpMax), 1.0f, 1.0f);
 
+        if (character.mana <= 0)
+            character.mana = 0;
+        if (character.mana >= character.manaMax)
+            character.mana = character.manaMax;
+        manaBar.transform.localScale = new Vector3((float)((double)character.mana / (double)character.manaMax), 1.0f, 1.0f);
     }
 }

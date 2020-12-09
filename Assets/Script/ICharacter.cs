@@ -118,6 +118,11 @@ public class ICharacter : MonoBehaviour
 
     }
 
+    public virtual void Death()
+    {
+
+    }
+
     public virtual void PlayAnimation(AnimationClip anim)
     {
         //int damageTaken = baseDamage;

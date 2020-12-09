@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class CharacterPlayer : ICharacter
 {
     public Animator animator;
-    public CharacterPlayer player;
+    //public CharacterPlayer player;
+    public BattleSystem battleSystem;
 
     [Header("Particle System")]
     public ParticleSystem attack1Particle;
@@ -29,6 +30,11 @@ public class CharacterPlayer : ICharacter
     //[SerializeField]
     //List<AnimationClip> clips;
 
+    void Awake()
+    {
+        //abilities[0] = battleSystem.abilities[3];
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,10 +51,10 @@ public class CharacterPlayer : ICharacter
     // Update is called once per frame
     void Update()
     {
-        if (hp <= 0)
-        {
-            Death();
-        }
+        //if (hp <= 0)
+        //{
+        //    Death();
+        //}
     }
 
     // Play sound
@@ -123,7 +129,7 @@ public class CharacterPlayer : ICharacter
         StartCoroutine(ChangeAnimation(0.5f));
     }
 
-    public void Death()
+    public override void Death()
     {
         animator.Play("Death");
     }
@@ -136,19 +142,18 @@ public class CharacterPlayer : ICharacter
     public override void HealAnimation()
     {
         animator.Play("Heal");
-        struggleParticle.Play();
+        healParticle.Play();
         PlaySound(healClip);
         StartCoroutine(ChangeAnimation(0.5f));
     }
 
     public override void Heal(int healAmount)
     {
-        //animator.Play("GetHit");
-        //int damageTaken = healAmount;
-        hp += healAmount;
-        mana -= healAmount;
-        //onHeal.Invoke(this, healAmount);
-        //(ChangeAnimation());
+        if (mana >= healAmount)
+        {
+            hp += healAmount;
+            mana -= healAmount;
+        }
     }
 
     public override void Escape()
@@ -164,6 +169,7 @@ public class CharacterPlayer : ICharacter
         attack1Particle.Stop();
         attack2Particle.Stop();
         healParticle.Stop();
+        struggleParticle.Stop();
     }
 
 }
