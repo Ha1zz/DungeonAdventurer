@@ -5,7 +5,9 @@ using Debug = UnityEngine.Debug;
 
 public enum BattleState
 {
-
+    Passive = 0,
+    Aggressive ,
+    SelfPreservation,
 }
 
 public class CharacterAI : ICharacter
@@ -31,6 +33,8 @@ public class CharacterAI : ICharacter
     private int scared = 0;
     private int aggressive = 0;
     private int passive = 0;
+    private int win = 0;
+    private int lose = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +56,75 @@ public class CharacterAI : ICharacter
 
     public override void TakeTurn()
     {
+        if (hp < 3)
+        {
+            if (mana >= 3)
+            {
+                UseAbility(3);
+            }
+            else
+            {
+                UseAbility(2);
+            }
+        }
+        else
+        {
+            if (hp < (float)((double)hpMax/(double)3) )
+            {
+                if (hp < player.hp)
+                {
+                    if (mana >= 3)
+                    {
+                        UseAbility(3);
+                    }
+                    else
+                    {
+                        int seed = Random.Range(0, 100);
+                        if (seed >= 0 && seed < 50)
+                        {
+                            UseAbility(1);
+                        }
+                        if (seed >= 50 && seed <= 100)
+                        {
+                            UseAbility(2);
+                        }
+                    }
+                }
+                else
+                {
+                    if (hp >= player.hp)
+                    {
+                        RandomAttack();
+                    }
+                }
+            }
+            else
+            {
+                if (hp >= player.hp)
+                {
+                    RandomAttack();
+                }
+                else
+                {
+                    if (player.hp - hp < 5)
+                    {
+                        RandomAttack();
+                    }
+                    else
+                    {
+                        if (mana >= 3)
+                        {
+                            UseAbility(3);
+                        }
+                        else
+                        {
+                            UseAbility(2);
+                        }
+                    }
+                }
+            }
+        }
+            
         //if (mana >= manaMax)
         //{
         //    UseAbility(0);
@@ -61,9 +134,25 @@ public class CharacterAI : ICharacter
         //    UseAbility(0);
 
         //}
-        UseAbility(0);
-
     }
+
+    void RandomAttack()
+    {
+        int seed = Random.Range(0, 100);
+        if (seed >= 0 && seed < 30)
+        {
+            UseAbility(0);
+        }
+        if (seed >= 30 && seed < 70)
+        {
+            UseAbility(1);
+        }
+        if (seed >= 70 && seed <= 100)
+        {
+            UseAbility(2);
+        }
+    }
+
 
     void Update()
     {

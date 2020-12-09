@@ -8,7 +8,7 @@ public class Ability : ScriptableObject
     //List<AnimationClip> clips;
 
     [SerializeField]
-    List<Effect> effects;
+    public List<Effect> effects;
 
     public virtual void ApplyEffects(ICharacter caster, ICharacter target)
     {
