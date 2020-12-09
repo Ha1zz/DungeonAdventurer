@@ -242,7 +242,7 @@ public class BattleSystem : MonoBehaviour
 
     public void ReloadSave()
     {
-
+        ChangeScene("PlayScene");
     }
 
     //void NextTurn()

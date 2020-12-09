@@ -64,6 +64,8 @@ public class PlayerController : MonoBehaviour
         PlayerPrefs.DeleteKey("Mana");
         PlayerPrefs.DeleteKey("PlayerPositionX");
         PlayerPrefs.DeleteKey("PlayerPositionY");
+        PlayerPrefs.DeleteKey("Ability1");
+        PlayerPrefs.DeleteKey("Ability2");
     }
 
     // Update is called once per frame

@@ -16,6 +16,7 @@ public class CanvasSystem : MonoBehaviour
 
     private bool isChangeOn;
     private bool isBattleOn;
+    private bool isLoseOn;
 
     //[SerializeField]
     //BattleSystem battle;
@@ -49,6 +50,10 @@ public class CanvasSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             ToggleSkillCanvas();
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            ToggleLose();
         }
     }
 
@@ -109,7 +114,19 @@ public class CanvasSystem : MonoBehaviour
         failCanvas.enabled = false;
     }
 
-
+    public void ToggleLose()
+    {
+        if (isLoseOn)
+        {
+            loseCanvas.enabled = false;
+            isLoseOn = false;
+        }
+        else
+        {
+            loseCanvas.enabled = true;
+            isLoseOn = true;
+        }
+    }
 
     public void ToggleBattle()
     {

@@ -10,12 +10,19 @@ public class Saver : MonoBehaviour
 
     public static UnityEvent OnSave = new UnityEvent();
     public static UnityEvent OnLoad = new UnityEvent();
-
     public PlayerController character;
+    public Canvas saveCanvas;
+    public Canvas loadCanvas;
 
     void Start()
     {
         character = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        saveCanvas = GameObject.Find("SaveCanvas").GetComponent<Canvas>();
+        loadCanvas = GameObject.Find("LoadCanvas").GetComponent<Canvas>();
+        if (saveCanvas != null)
+            saveCanvas.enabled = false;
+        if (loadCanvas != null)
+            loadCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -31,23 +38,36 @@ public class Saver : MonoBehaviour
         }
     }
 
-    private void Load()
+    public void Load()
     {
+        loadCanvas.enabled = true;
         OnLoad.Invoke();
-        transform.position = new Vector2(PlayerPrefs.GetFloat("CurrentPositionX"), PlayerPrefs.GetFloat("CurrentPositionY"));
+        character.transform.position = new Vector2(PlayerPrefs.GetFloat("CurrentPositionX"), PlayerPrefs.GetFloat("CurrentPositionY"));
         character.hp = PlayerPrefs.GetFloat("Hp");
         character.mana = PlayerPrefs.GetFloat("Mana");
+        StartCoroutine(Wait(1.0f));
     }
 
 
 
-    private void Save()
+    public void Save()
     {
+        saveCanvas.enabled = true;
         OnSave.Invoke();
-        PlayerPrefs.SetFloat("CurrentPositionX", transform.position.x);
-        PlayerPrefs.SetFloat("CurrentPositionY", transform.position.y);
+        PlayerPrefs.SetFloat("CurrentPositionX", character.transform.position.x);
+        PlayerPrefs.SetFloat("CurrentPositionY", character.transform.position.y);
         PlayerPrefs.SetFloat("Hp", character.hp);
         PlayerPrefs.SetFloat("Mana", character.mana);
         PlayerPrefs.Save();
+        StartCoroutine(Wait(1.0f));
+    }
+
+    IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (saveCanvas != null)
+            saveCanvas.enabled = false;
+        if (loadCanvas != null)
+            loadCanvas.enabled = false;
     }
 }
