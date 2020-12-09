@@ -30,7 +30,7 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SpawnPoint.player.GetComponent<EncounterController>().onEnterEncounter.AddListener(EnterEncounterHandler);
+        //SpawnPoint.player.GetComponent<EncounterController>().onEnterEncounter.AddListener(EnterEncounterHandler);
     }
 
     

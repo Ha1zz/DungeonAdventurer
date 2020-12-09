@@ -54,13 +54,13 @@ public class EffectDamage : Effect
                 }
             case (TargetAndEffectType.AllAttack):
                 {
-                    caster.TakeDamage(power);
-                    caster.GetHit();
-                    caster.AttackHeavy();
+                    //caster.TakeDamage(power);
+                    //caster.GetHit();
+                    //caster.AttackHeavy();
 
-                    target.TakeDamage(power);
-                    target.GetHit();
-                    target.AttackLight();
+                    //target.TakeDamage(power);
+                    //target.GetHit();
+                    //target.AttackLight();
                     break;
                 }
             case (TargetAndEffectType.Escape):

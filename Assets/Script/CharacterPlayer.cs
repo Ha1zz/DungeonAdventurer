@@ -25,6 +25,8 @@ public class CharacterPlayer : ICharacter
     public AudioClip healClip;
     public bool canPlay = true;
 
+    public Dictionary<int, int> skillList = new Dictionary<int,int>(); // Player Ability List - Battle All Ability List
+
     //public Animation amin;
 
     //[SerializeField]
@@ -32,12 +34,34 @@ public class CharacterPlayer : ICharacter
 
     void Awake()
     {
-        //abilities[0] = battleSystem.abilities[3];
+        if (PlayerPrefs.HasKey("Ability1") == false)
+        {
+            skillList.Add(0, 0);
+            PlayerPrefs.SetInt("Ability1", skillList[0]);
+        }
+        if (PlayerPrefs.HasKey("Ability2") == false)
+        {
+            skillList.Add(1, 1);
+            PlayerPrefs.SetInt("Ability2", skillList[1]);
+        }
+        if (PlayerPrefs.HasKey("Ability1"))
+        {
+            skillList[0] = PlayerPrefs.GetInt("Ability1");
+        }
+        if (PlayerPrefs.HasKey("Ability2"))
+        {
+            skillList[1] = PlayerPrefs.GetInt("Ability2");
+        }
+        abilities[0] = battleSystem.abilities[skillList[0]];
+        abilities[1] = battleSystem.abilities[skillList[1]];
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
+        hp = PlayerPrefs.GetFloat("Hp");
+        mana = PlayerPrefs.GetFloat("Mana");
         animator = GetComponent<Animator>();
         musicController = GameObject.Find("MusicController");
         attack1Clip = (AudioClip)Resources.Load("BattleSounds/attack1");
@@ -51,10 +75,7 @@ public class CharacterPlayer : ICharacter
     // Update is called once per frame
     void Update()
     {
-        //if (hp <= 0)
-        //{
-        //    Death();
-        //}
+
     }
 
     // Play sound
@@ -136,7 +157,7 @@ public class CharacterPlayer : ICharacter
 
     public override void Struggle()
     {
-
+        
     }
 
     public override void HealAnimation()
@@ -159,7 +180,7 @@ public class CharacterPlayer : ICharacter
     public override void Escape()
     {
         PlaySound(escapeClip);
-        SceneManager.LoadScene("PlayScene");
+        //SceneManager.LoadScene("PlayScene");
     }
 
     IEnumerator ChangeAnimation(float time)

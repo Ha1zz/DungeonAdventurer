@@ -61,7 +61,7 @@ public class CharacterAI : ICharacter
         //    UseAbility(0);
 
         //}
-        UseAbility(2);
+        UseAbility(0);
 
     }
 

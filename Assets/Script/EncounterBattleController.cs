@@ -108,7 +108,7 @@ public class EncounterBattleController : MonoBehaviour
     public void UpAttack()
     {
         PlayerController playerScript = player.GetComponent<PlayerController>();
-        float tempAttack = playerScript.health;
+        //float tempAttack = playerScript.health;
         animator.Play("UpAttack");
     }
 

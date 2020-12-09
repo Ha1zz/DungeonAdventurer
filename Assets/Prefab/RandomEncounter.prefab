@@ -71,5 +71,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randEnt1: RandomEncounter1
-  randEnt2: RandomEncounter2
-  randEnt3: RandomEncounter3
+  randEnt2: RandomEncounter1
+  randEnt3: RandomEncounter1

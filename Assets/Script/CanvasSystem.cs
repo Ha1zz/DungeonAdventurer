@@ -8,9 +8,11 @@ using Debug = UnityEngine.Debug;
 public class CanvasSystem : MonoBehaviour
 {
     private Canvas changeSkillCanvas;
-    private Canvas battleCanvas;
+    public Canvas battleCanvas;
     private Canvas winCanvas;
     private Canvas loseCanvas;
+    private Canvas successCanvas;
+    private Canvas failCanvas;
 
     private bool isChangeOn;
     private bool isBattleOn;
@@ -35,6 +37,10 @@ public class CanvasSystem : MonoBehaviour
         winCanvas.enabled = false;
         loseCanvas = GameObject.Find("LoseCanvas").GetComponent<Canvas>();
         loseCanvas.enabled = false;
+        successCanvas = GameObject.Find("SuccessCanvas").GetComponent<Canvas>();
+        successCanvas.enabled = false;
+        failCanvas = GameObject.Find("FailCanvas").GetComponent<Canvas>();
+        failCanvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -42,7 +48,7 @@ public class CanvasSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            ToggleCanvas();
+            ToggleSkillCanvas();
         }
     }
 
@@ -83,6 +89,25 @@ public class CanvasSystem : MonoBehaviour
         battleCanvas.enabled = false;
     }
 
+    public void ShowSuccess()
+    {
+        successCanvas.enabled = true;
+    }
+
+    public void HideSuccess()
+    {
+        successCanvas.enabled = false;
+    }
+
+    public void ShowFail()
+    {
+        failCanvas.enabled = true;
+    }
+
+    public void HideFail()
+    {
+        failCanvas.enabled = false;
+    }
 
 
 
@@ -101,7 +126,7 @@ public class CanvasSystem : MonoBehaviour
     }
 
 
-    void ToggleCanvas()
+    void ToggleSkillCanvas()
     {
         if (isChangeOn)
         {

@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
 
-    public float health = 10;
-
-    public float attack = 1;
+    [Header("Player Stat")]
+    public float hp = 20;
+    public float mana = 10;
 
     [SerializeField]
     float speed = 5;
@@ -21,11 +21,11 @@ public class PlayerController : MonoBehaviour
 
     int enCounter = 0;
 
-    float barDisplay = 0.0f;
-    Vector2 pos = new Vector2(200,20);
-    Vector2 size = new Vector2(200,40);
-    Texture2D progressBarEmpty;
-    Texture2D progressBarFull;
+    //float barDisplay = 0.0f;
+    //Vector2 pos = new Vector2(200,20);
+    //Vector2 size = new Vector2(200,40);
+    //Texture2D progressBarEmpty;
+    //Texture2D progressBarFull;
 
     void Awake()
     {
@@ -40,17 +40,38 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = 10;
-        attack = 1;
+        if (PlayerPrefs.HasKey("Hp") && PlayerPrefs.HasKey("Mana"))
+        {
+            hp = PlayerPrefs.GetFloat("Hp");
+            mana = PlayerPrefs.GetFloat("Mana");
+        }
+        else
+        {
+            hp = 20;
+            mana = 10;
+            PlayerPrefs.SetFloat("Hp", hp);
+            PlayerPrefs.SetFloat("Mana", mana);
+        }
+
+
+
         animator = GetComponent<Animator>();
+    }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Hp");
+        PlayerPrefs.DeleteKey("Mana");
+        PlayerPrefs.DeleteKey("PlayerPositionX");
+        PlayerPrefs.DeleteKey("PlayerPositionY");
     }
 
     // Update is called once per frame
     void Update()
     {
-        barDisplay = health;
-        PlayerPrefs.SetFloat("Health", health);
-        PlayerPrefs.SetFloat("Attack", attack);
+        //barDisplay = health;
+        //PlayerPrefs.SetFloat("Hp", hp);
+        //PlayerPrefs.SetFloat("Mana", mana);
         if (PlayerPrefs.HasKey("EncounterCounter"))
         {
             enCounter = PlayerPrefs.GetInt("EncounterCounter");
@@ -60,7 +81,7 @@ public class PlayerController : MonoBehaviour
         {
             enCounter--;
             PlayerPrefs.SetInt("EncounterCounter",enCounter);
-            //PlayerPrefs.Save();
+            PlayerPrefs.Save();
         }
         Move();
     }
@@ -107,7 +128,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //For sound
-            SoundManager.PlaySound(SoundManager.Sound.playerMove);
+            //SoundManager.PlaySound(SoundManager.Sound.playerMove);
         }
         else
         {

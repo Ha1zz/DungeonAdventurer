@@ -12,7 +12,7 @@ public class SpawnPoint : MonoBehaviour
 
     void Awake()
     {
-        if (player == null)
+        if (player == null && SceneManager.GetActiveScene().name == "PlayScene")
         {
             player = FindObjectOfType<PlayerController>();
             if (player == null)

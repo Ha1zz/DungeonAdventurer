@@ -11,6 +11,13 @@ public class Saver : MonoBehaviour
     public static UnityEvent OnSave = new UnityEvent();
     public static UnityEvent OnLoad = new UnityEvent();
 
+    public PlayerController character;
+
+    void Start()
+    {
+        character = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -28,6 +35,8 @@ public class Saver : MonoBehaviour
     {
         OnLoad.Invoke();
         transform.position = new Vector2(PlayerPrefs.GetFloat("CurrentPositionX"), PlayerPrefs.GetFloat("CurrentPositionY"));
+        character.hp = PlayerPrefs.GetFloat("Hp");
+        character.mana = PlayerPrefs.GetFloat("Mana");
     }
 
 
@@ -37,6 +46,8 @@ public class Saver : MonoBehaviour
         OnSave.Invoke();
         PlayerPrefs.SetFloat("CurrentPositionX", transform.position.x);
         PlayerPrefs.SetFloat("CurrentPositionY", transform.position.y);
+        PlayerPrefs.SetFloat("Hp", character.hp);
+        PlayerPrefs.SetFloat("Mana", character.mana);
         PlayerPrefs.Save();
     }
 }

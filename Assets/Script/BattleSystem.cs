@@ -41,14 +41,20 @@ public class BattleSystem : MonoBehaviour
     //public string overWorld;
 
     //CharacterController playerControl;
-
+    [Header("Struggle Chance 0 - 100")]
     public int struggleChance;
+    [Header("Escape Chance 0 - 100")]
     public int escapeChance;
+
+
+    private bool isStruggleSuccess;
+    private bool isEscapeSuccess;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        isStruggleSuccess = false;
+        isEscapeSuccess = false;
         for (int i = 0; i < combatants.Length; i++)
         {
             combatants[i].onUseAbility.AddListener(CharacterUseAbility);
@@ -85,7 +91,7 @@ public class BattleSystem : MonoBehaviour
         //    canvas.ShowBattle();
         //}
 
-        StartCoroutine(DelaySwapTurns(4));
+        StartCoroutine(DelaySwapTurns(3));
     }
 
     //public void AICharacterUseAbility(ICharacter caster, Ability ability)
@@ -102,43 +108,47 @@ public class BattleSystem : MonoBehaviour
 
     public void AdvanceTurn()
     {
-        if (IsEnemyDead() == false && IsPlayerDead() == false)
+        if (isStruggleSuccess == false)
         {
-            if ((int)phase != 0)
+            if (IsEnemyDead() == false && IsPlayerDead() == false)
             {
-                canvas.ShowBattle();
-            }
-            phase++;
-            if (phase >= BattlePhase.Count)
-            {
-                phase = 0;
-            }
+                if ((int)phase != 0)
+                {
+                    canvas.ShowBattle();
+                }
+                phase++;
+                if (phase >= BattlePhase.Count)
+                {
+                    phase = 0;
+                }
 
-            ICharacter whoseTurnItIs = combatants[(int)phase];
-            //Debug.Log("It is " + whoseTurnItIs.name + "'s turn.");
-            whoseTurnItIs.TakeTurn();
-            onCharacterTurnBegin.Invoke(whoseTurnItIs);
+                ICharacter whoseTurnItIs = combatants[(int)phase];
+                //Debug.Log("It is " + whoseTurnItIs.name + "'s turn.");
+                whoseTurnItIs.TakeTurn();
+                onCharacterTurnBegin.Invoke(whoseTurnItIs);
+            }
+            else
+            {
+                if (IsPlayerDead())
+                {
+                    combatants[(int)BattlePhase.Player].Death();
+                    canvas.ShowLose();
+
+                }
+                if (IsEnemyDead())
+                {
+                    combatants[(int)BattlePhase.Enemy].Death();
+                    canvas.ShowWin();
+                }
+            }
         }
-        else
-        {
-            if (IsPlayerDead())
-            {
-                combatants[(int)BattlePhase.Player].Death();
-                canvas.ShowLose();
-
-            }
-            if (IsEnemyDead())
-            {
-                combatants[(int)BattlePhase.Enemy].Death();
-                canvas.ShowWin();
-            }
-        }
-
     }
 
     IEnumerator DelaySwapTurns(float time)
     {
         yield return new WaitForSeconds(time);
+        canvas.HideFail();
+        canvas.HideSuccess();
         AdvanceTurn();
     }
 
@@ -147,6 +157,16 @@ public class BattleSystem : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteKey("Hp");
+        PlayerPrefs.DeleteKey("Mana");
+        PlayerPrefs.DeleteKey("PlayerPositionX");
+        PlayerPrefs.DeleteKey("PlayerPositionY");
+        PlayerPrefs.DeleteKey("Ability1");
+        PlayerPrefs.DeleteKey("Ability2");
     }
 
     bool IsPlayerDead()
@@ -174,9 +194,45 @@ public class BattleSystem : MonoBehaviour
 
     public void Escape()
     {
-        //animator.Play("Escape");
-        SceneManager.LoadScene("PlayScene");
-        //AdvanceTurn();
+        if (escapeChance > 100)
+            escapeChance = 100;
+        int seed = Random.Range(0, 100);
+        if (seed <= escapeChance)
+        {
+            canvas.ShowSuccess();
+            StartCoroutine(Wait(5.0f));
+            combatants[(int)BattlePhase.Player].Escape();
+            PlayerPrefs.SetFloat("Hp", combatants[(int)BattlePhase.Player].hp);
+            PlayerPrefs.SetFloat("Mana", combatants[(int)BattlePhase.Player].mana);
+            SceneManager.LoadScene("PlayScene");
+        }
+        else
+        {
+            canvas.ShowFail();
+            StartCoroutine(Wait(5.0f));
+        }
+    }
+
+    public void Struggle()
+    {
+        if (struggleChance > 100)
+            struggleChance = 100;
+        int seed = Random.Range(0,100);
+        if (seed <= struggleChance)
+        {
+            PlayerPrefs.SetFloat("Hp", combatants[(int)BattlePhase.Player].hp);
+            PlayerPrefs.SetFloat("Mana", combatants[(int)BattlePhase.Player].mana);
+            canvas.ShowSuccess();
+            StartCoroutine(Wait(5.0f));
+            combatants[(int)BattlePhase.Player].AttackHeavy();
+            combatants[(int)BattlePhase.Enemy].TakeDamage(21);
+            combatants[(int)BattlePhase.Enemy].GetHit();
+        }
+        else
+        {
+            canvas.ShowFail();
+            StartCoroutine(Wait(5.0f));
+        }     
     }
 
     public void ChangeScene(string sceneName = "PlayScene")
@@ -195,5 +251,9 @@ public class BattleSystem : MonoBehaviour
     //    character[(int)currentPhase].OnTurnBegins();
     //}
 
+    IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+    }
 }
 

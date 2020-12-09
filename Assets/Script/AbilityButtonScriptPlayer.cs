@@ -11,6 +11,7 @@ public class AbilityButtonScriptPlayer : MonoBehaviour
 
     [SerializeField]
     BattleSystem battle;
+    CharacterPlayer player;
 
     [SerializeField]
     TMPro.TextMeshProUGUI abilityNameText;
@@ -25,6 +26,11 @@ public class AbilityButtonScriptPlayer : MonoBehaviour
         {
             battle = FindObjectOfType<BattleSystem>();
         }
+        if (player == null)
+        {
+            player = FindObjectOfType<CharacterPlayer>();
+        }
+
 
         thisAbility = battle.combatants[(int)BattlePhase.Player].abilities[abilityID];
 
@@ -45,11 +51,36 @@ public class AbilityButtonScriptPlayer : MonoBehaviour
             abilityNameText.text = "";
             theButton.interactable = false;
         }
+
+        //Debug.Log("A1: " + PlayerPrefs.GetInt("Ability1"));
+        //Debug.Log("A2: " + PlayerPrefs.GetInt("Ability2"));
+        //Debug.Log("S1: " + player.skillList[0]);
+        //Debug.Log("S2: " + player.skillList[1]);
     }
 
     public void GetSkill()
     {
         battle.combatants[(int)BattlePhase.Player].abilities[abilityID] = battle.abilities[Global.changeSkillID];
+        switch(abilityID)
+        {
+            case 0:
+                {
+                    player.skillList[0] = Global.changeSkillID;
+                    PlayerPrefs.SetInt("Ability1", player.skillList[0]);
+                    return;
+                }
+            case 1:
+                {
+                    player.skillList[1] = Global.changeSkillID;
+                    PlayerPrefs.SetInt("Ability2", player.skillList[1]);
+                    return;
+                }
+            default:
+                return;
+        }
+
+        //PlayerPrefs.SetInt("Ability1", player.skillList[0]);
+        //PlayerPrefs.SetInt("Ability2", player.skillList[1]);
         StartCoroutine(WaitAndLoad());
     }
     

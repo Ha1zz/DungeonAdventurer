@@ -6,15 +6,15 @@ using Debug = UnityEngine.Debug;
 
 public class ICharacter : MonoBehaviour
 {
-    public int hp = 20;
+    public float hp = 20;
 
     [SerializeField]
-    public int hpMax = 20;
+    public float hpMax = 20;
 
-    public int mana = 10;
+    public float mana = 10;
 
     [SerializeField]
-    public int manaMax = 10;
+    public float manaMax = 10;
 
     [SerializeField]
     //public Animator animator;
@@ -129,7 +129,7 @@ public class ICharacter : MonoBehaviour
         //hp -= baseDamage;
         //onTakeDamage.Invoke(this, baseDamage);
 
-        SoundManager.PlaySound(SoundManager.Sound.playerHit);
+        //SoundManager.PlaySound(SoundManager.Sound.playerHit);
 
     }
 

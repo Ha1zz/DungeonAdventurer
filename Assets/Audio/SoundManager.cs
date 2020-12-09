@@ -27,9 +27,9 @@ public static class SoundManager
         soundTimerDictionary[Sound.playerMove] = 0f;
     }
 
-    public static void PlaySound(Sound sound) 
+    public static void PlaySound(Sound sound)
     {
-       if(CanPlaySound(sound))
+        if (CanPlaySound(sound))
         {
             GameObject soundGameObject = new GameObject("Sound");
             AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
@@ -40,32 +40,35 @@ public static class SoundManager
     //Made so that the player move sound is not played on top of each other multiple times
     private static bool CanPlaySound(Sound sound)
     {
-        switch(sound)
+        switch (sound)
         {
-          
-          default:
-            return true;
-            
-            case Sound.playerMove:
-              if(soundTimerDictionary.ContainsKey(sound))
-              {
-                    float lastTimePlayed = soundTimerDictionary[sound];
-                    float playerMoveTimerMax = .05f;
 
-                    if(lastTimePlayed + playerMoveTimerMax < Time.time)
-                    {
-                        soundTimerDictionary[sound] = Time.time;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-              }
-              else
-              {
-                 return true;
-              }
+            default:
+                return true;
+
+            case Sound.playerMove:
+
+                // PROBLEM HERE - JOHNNY
+                //if (soundTimerDictionary.ContainsKey(sound))
+                //{
+                //    float lastTimePlayed = soundTimerDictionary[sound];
+                //    float playerMoveTimerMax = .05f;
+
+                //    if (lastTimePlayed + playerMoveTimerMax < Time.time)
+                //    {
+                //        soundTimerDictionary[sound] = Time.time;
+                //        return true;
+                //    }
+                //    else
+                //    {
+                //        return false;
+                //    }
+                //}
+                //else
+                //{
+                //    return true;
+                //}
+                return false;
         }
     }
 
