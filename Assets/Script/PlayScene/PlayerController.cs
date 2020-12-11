@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private Animator animator;
+    bool isPlayedOnce = true;
 
     [Header("Player Stat")]
     public float hp = 20;
@@ -20,12 +21,6 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigidBody;
 
     int enCounter = 0;
-
-    //float barDisplay = 0.0f;
-    //Vector2 pos = new Vector2(200,20);
-    //Vector2 size = new Vector2(200,40);
-    //Texture2D progressBarEmpty;
-    //Texture2D progressBarFull;
 
     void Awake()
     {
@@ -107,53 +102,46 @@ public class PlayerController : MonoBehaviour
             {
                 if (movementVector.x < 0) //moving left/WEST
                 {
-                    animator.Play("RunLeft");
+                    //animator.Play("RunLeft");
+                    animator.SetInteger("ChangeState", 2);
                 }
                 else //moving right/EAST
                 {
-                    animator.Play("RunRight");
+                    //animator.Play("RunRight");
+                    animator.SetInteger("ChangeState", 1);
                 }
             }
             else // moving more vertically
             {
                 if (movementVector.x == 0 && movementVector.y != 0) //moving down/SOUTH
                 {
-                    animator.Play("RunRight");
+                    //animator.Play("RunRight");
+                    animator.SetInteger("ChangeState", 1);
                 }
                 if (movementVector.x > 0 && movementVector.y < 0) //moving down/SOUTH
                 {
-                    animator.Play("RunRight");
+                    //animator.Play("RunRight");
+                    animator.SetInteger("ChangeState", 1);
                 }
                 if (movementVector.x > 0 && movementVector.y > 0)
                 {
-                    animator.Play("RunRight");
+                    //animator.Play("RunRight");
+                    animator.SetInteger("ChangeState", 1);
                 }
 
             }
 
-            //For sound
             //SoundManager.PlaySound(SoundManager.Sound.playerMove);
         }
         else
         {
-            animator.Play("Idle");
+            //animator.Play("Idle");
+            rigidBody.velocity = Vector2.zero;
+            animator.SetInteger("ChangeState", 0);
         }
 
         
     }
-
-    //void OnGUI()
-    //{
-    //    GUI.color = Color.red;
-    //    // draw the background:
-    //    GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y));
-    //    GUI.Box(new Rect(0, 0, size.x, size.y), progressBarEmpty);
-    //    // draw the filled-in part:
-    //    GUI.BeginGroup(new Rect(0, 0, size.x * barDisplay, size.y));
-    //    GUI.Box(new Rect(0, 0, size.x, size.y), progressBarFull);
-    //    GUI.EndGroup();
-    //    GUI.EndGroup();
-    //}
 
     private void FlipX()
     {

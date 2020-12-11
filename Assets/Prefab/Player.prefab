@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6687507648235440169}
   - component: {fileID: 6687507648235440182}
   - component: {fileID: 8515172697346597928}
+  - component: {fileID: 4981393017797433146}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -191,7 +192,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &6687507648235440170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +219,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.004016012, y: -0.0008455068}
@@ -244,7 +245,7 @@ Animator:
   m_GameObject: {fileID: 6687507648235440168}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 78e3e833d8aa6ea47bde87897293b989, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7cfb8dd83ad95924f8298ed4e7250291, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -266,3 +267,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  saveCanvas: {fileID: 0}
+  loadCanvas: {fileID: 0}
+--- !u!70 &4981393017797433146
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687507648235440168}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.31, y: 0.54}
+  m_Direction: 0

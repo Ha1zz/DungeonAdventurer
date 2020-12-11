@@ -35,12 +35,6 @@ public class BattleSystem : MonoBehaviour
     [Header("Canvas System")]
     public CanvasSystem canvas;
 
-    ///[SerializeField]
-    //public static int changeSkillID;
-
-    //public string overWorld;
-
-    //CharacterController playerControl;
     [Header("Struggle Chance 0 - 100")]
     public int struggleChance;
     [Header("Escape Chance 0 - 100")]
@@ -59,8 +53,6 @@ public class BattleSystem : MonoBehaviour
         {
             combatants[i].onUseAbility.AddListener(CharacterUseAbility);
         }
-        //combatants[0].onUseAbility.AddListener(CharacterUseAbility);
-        //combatants[1].AIonUseAbility.AddListener(AICharacterUseAbility);
 
         AdvanceTurn();
     }
@@ -76,35 +68,11 @@ public class BattleSystem : MonoBehaviour
             }
         }
 
-
-
-        //ability.ApplyEffects(target, caster);
-
         ability.ApplyEffects(caster, target);
 
-        //if ((int)phase == 0)
-        //{
-        //    canvas.HideBattle();
-        //}
-        //if ((int)phase != 0)
-        //{
-        //    canvas.ShowBattle();
-        //}
 
         StartCoroutine(DelaySwapTurns(3));
     }
-
-    //public void AICharacterUseAbility(ICharacter caster, Ability ability)
-    //{
-    //    ICharacter target = combatants[1];
-    //    caster = combatants[0];
-
-    //    //ability.ApplyEffects(caster, target);
-
-    //    ability.ApplyEffects(target, caster);
-
-    //    StartCoroutine(DelaySwapTurns(3));
-    //}
 
     public void AdvanceTurn()
     {

@@ -48,7 +48,6 @@ public static class SoundManager
 
             case Sound.playerMove:
 
-                // PROBLEM HERE - JOHNNY
                 if (soundTimerDictionary.ContainsKey(sound))
                 {
                     float lastTimePlayed = soundTimerDictionary[sound];
@@ -67,8 +66,7 @@ public static class SoundManager
                 else
                 {
                     return true;
-                }
-                
+                }              
         }
     }
 

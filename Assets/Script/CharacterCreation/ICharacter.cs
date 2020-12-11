@@ -125,18 +125,7 @@ public class ICharacter : MonoBehaviour
 
     public virtual void PlayAnimation(AnimationClip anim)
     {
-        //int damageTaken = baseDamage;
-        //hp -= baseDamage;
-        //onTakeDamage.Invoke(this, baseDamage);
-
         //SoundManager.PlaySound(SoundManager.Sound.playerHit);
 
     }
-
-    //public void TakeDamageAndAnimation(int baseDamage, Animator animator)
-    //{
-    //    int damageTaken = baseDamage;
-    //    hp -= baseDamage;
-    //    onTakeDamage.Invoke(this, baseDamage);
-    //}
 }

@@ -84,23 +84,6 @@ public class CharacterPlayer : ICharacter
         musicController.GetComponent<MusicController>().PlayAudio(aClip);
     }
 
-    //public override void TakeTurn()
-    //{
-    //    Debug.Log("PLAYER");
-    //}
-
-    //public override void UseAbility(int id)
-    //{
-    //    Debug.Log("PLAYER");
-    //    onUseAbility.Invoke(this, abilities[id]);
-    //}
-
-    //public override void PlayAnimation(AnimationClip animo)
-    //{
-    //    anim.clip = amino;
-    //    amin.Play();
-    //}
-
     public override void TakeDamage(int baseDamage)
     {
         int damageTaken = baseDamage;
@@ -108,17 +91,6 @@ public class CharacterPlayer : ICharacter
         onTakeDamage.Invoke(this, baseDamage);
 
     }
-
-    //public override void PlayAnimation(AnimationClip clip)
-    //{
-    //    animation.clip = clip;
-    //    animation.Play();
-    //}
-
-
-
-
-
 
     public override void AttackLight()
     {
