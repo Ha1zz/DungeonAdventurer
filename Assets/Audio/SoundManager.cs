@@ -49,26 +49,26 @@ public static class SoundManager
             case Sound.playerMove:
 
                 // PROBLEM HERE - JOHNNY
-                //if (soundTimerDictionary.ContainsKey(sound))
-                //{
-                //    float lastTimePlayed = soundTimerDictionary[sound];
-                //    float playerMoveTimerMax = .05f;
+                if (soundTimerDictionary.ContainsKey(sound))
+                {
+                    float lastTimePlayed = soundTimerDictionary[sound];
+                    float playerMoveTimerMax = .05f;
 
-                //    if (lastTimePlayed + playerMoveTimerMax < Time.time)
-                //    {
-                //        soundTimerDictionary[sound] = Time.time;
-                //        return true;
-                //    }
-                //    else
-                //    {
-                //        return false;
-                //    }
-                //}
-                //else
-                //{
-                //    return true;
-                //}
-                return false;
+                    if (lastTimePlayed + playerMoveTimerMax < Time.time)
+                    {
+                        soundTimerDictionary[sound] = Time.time;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return true;
+                }
+                
         }
     }
 

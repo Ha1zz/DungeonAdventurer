@@ -10,7 +10,7 @@ using UnityEditor.Events;
 
 public class RandomEncounterController : MonoBehaviour
 {
-
+    public static bool isTriggered;
 
     public string randEnt1;
     public string randEnt2;
@@ -59,6 +59,8 @@ public class RandomEncounterController : MonoBehaviour
     {
         if (collision.tag == "Player" && PlayerPrefs.GetInt("EncounterCounter") <= 0)
         {
+            isTriggered = true; //For fading inbetween scenes
+            
             //PlayerWorldTraveller player = collision.gameObject.GetComponent<PlayerWorldTraveller>();
             //player.SpawnLocation = tag;
             //SceneManager.LoadScene(tag);
@@ -67,6 +69,8 @@ public class RandomEncounterController : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerPositionY", playerPosition.position.y);
             PlayerPrefs.Save();
             //int seed = Random.Range(1, 2);
+
+            isTriggered = false;
             int seed = 1;
             switch(seed)
             {

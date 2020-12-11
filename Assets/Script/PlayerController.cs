@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
+        SoundManager.Initialize();
+        
         if (PlayerPrefs.HasKey("PlayerPositionX") && PlayerPrefs.HasKey("PlayerPositionY"))
         {
             transform.position = new Vector2(PlayerPrefs.GetFloat("PlayerPositionX"), PlayerPrefs.GetFloat("PlayerPositionY"));
